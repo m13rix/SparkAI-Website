@@ -1,5 +1,5 @@
 const userHandler = (() => {
-    const base = 'https://spark-uni-homework-helper.up.railway.app/user';
+    const base = 'https://spark-ai.up.railway.app/user';
 
     async function getUser(id) {
         const res = await fetch(`${base}/${id}`);

@@ -119,7 +119,7 @@ const Chat = (() => {
         if (messageText) {
             addUserMessage(messageText);
             try {
-                const response = await fetch('https://spark-uni-homework-helper.up.railway.app/chat', {
+                const response = await fetch('https://spark-ai.up.railway.app/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -157,7 +157,7 @@ const Chat = (() => {
 
     async function askSparkAI(question, additionalPrompt) {
         try {
-            const response = await fetch('https://spark-uni-homework-helper.up.railway.app/ask', {
+            const response = await fetch('https://spark-ai.up.railway.app/ask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
