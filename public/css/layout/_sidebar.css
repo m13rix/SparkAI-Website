@@ -1,0 +1,260 @@
+/* Боковая панель (sidebar) */
+.sidebar {
+    width: 230px;
+    background: none;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-right: 2px solid var(--border-neon);
+    box-shadow: var(--box-shadow-inset); /* Используем переменную для тени */
+    filter: var(--drop-shadow);
+    padding-top: 80px; /* резерв для аватара, который частично находится в header */
+    display: flex;
+    position: sticky;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    height: 91.2vh;
+    z-index: 1;
+}
+/* Профиль пользователя (верхняя часть) */
+.sidebar .profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    top: 5px;
+    text-align: center;
+    width: 84%;
+    padding: 16px;
+}
+
+.sidebar .logo-link {
+    width: 80%;
+}
+
+.sidebar .profile .avatar {
+    cursor: pointer;
+    width: 20%;
+    height: 15%;
+    border-radius: 50%;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 2px solid var(--border-neon);
+    box-shadow: inset 0 0 16px rgb(104, 177, 255, 0.7); /* Используем переменную для тени */
+    filter: drop-shadow(0px 0px 10px rgb(104, 177, 255, 0.6));
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    aspect-ratio: 1;
+}
+.sidebar .profile .avatar:hover,
+.sidebar .profile .avatar:focus-visible {
+    border: 2px solid var(--accent-main);
+    scale: 1.05;
+    filter: drop-shadow(0px 0px 16px rgb(104, 177, 255, 0.8));
+}
+.sidebar .profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(93%) hue-rotate(288deg) contrast(111%);
+}
+
+.sidebar .profile .logo-link .logo {
+    width: 84%;
+    height: 92%;
+    margin-top: -4px;
+    margin-left: 10px;
+}
+
+.sidebar .profile .username {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+/* Список навигационных пунктов */
+.nav-items {
+    flex: 1;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.nav-item:hover .label {
+    color: #99ddff; /* Используем переменную для акцентного цвета */
+    filter: drop-shadow(0px 0px 16px #99ddff);
+    text-shadow: 0 0 20px #99ddff; /* Используем переменную для акцентного цвета */
+}
+.nav-item.active .label {
+    color: #99ddff; /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 20px #99ddff; /* Используем переменную для акцентного цвета */
+    filter: drop-shadow(0px 0px 16px #99ddff);
+}
+.nav-item.active .icon {
+    color: #99ddff; /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 20px #99ddff; /* Используем переменную для акцентного цвета */
+    filter: drop-shadow(0px 0px 16px #99ddff);
+}
+.nav-item .icon {
+    font-size: 1.3em;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    color: var(--neutral-grey);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+.nav-item:hover .icon {
+    color: #99ddff; /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 20px #99ddff; /* Используем переменную для акцентного цвета */
+    filter: drop-shadow(0px 0px 16px #99ddff);
+}
+.nav-item .label {
+    color: var(--neutral-grey); /* Используем переменную для акцентного цвета */
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+            "wdth" 150;
+    font-size: 0.92em;
+    flex-grow: 1;
+    transition: all 0.3s ease;
+}
+/* Футер боковой панели (дополнительные инструменты) */
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.add-tool {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    transition: background 0.3s ease;
+    border-radius: 8px;
+}
+.add-tool:hover {
+    background: rgba(0, 230, 230, 0.1);
+}
+.add-tool .icon {
+    width: 20px;
+    height: 20px;
+    fill: #00e6e6;
+    margin-right: 10px;
+}
+.add-tool .label {
+    font-size: 14px;
+}
+
+.login-button {
+    padding:
+            8px 10px;
+    border:
+            none;
+    border-radius:
+            18px;
+    background-color: #99ddff;
+    color: #0a0a0a;
+    font-size: 1em;
+    cursor: pointer;
+    transition:
+            background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(153, 221, 255, 0.5);
+    text-decoration: none;
+}
+/* Адаптивность: сворачивание sidebar для узких экранов */
+@media (max-width: 768px) {
+    .sidebar {
+        padding-top: 80px;
+    }
+}
+
+/* === Avatar Dropdown Menu === */
+.avatar-dropdown {
+    position: absolute;
+    top: 65px; /* Позиция под аватаром, подбирай точнее */
+    right: 15px; /* Отступ справа */
+    width: 200px; /* Ширина меню */
+    background: rgba(15, 20, 35, 0.6); /* Полупрозрачный фон, темнее сайдбара для контраста */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid var(--border-neon);
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), /* Внешняя тень для объема */
+    inset 0 0 15px rgba(104, 177, 255, 0.3); /* Легкая внутренняя подсветка */
+    z-index: 100; /* Выше других элементов сайдбара */
+    padding: 8px 0; /* Внутренние отступы сверху/снизу */
+
+    /* Начальное состояние для анимации GSAP */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transform-origin: top right; /* Анимация масштабирования от верхнего правого угла */
+}
+
+.avatar-dropdown.active {
+    /* Состояние видимости (управляется GSAP, но можно оставить для fallback) */
+    /* opacity: 1; */
+    /* visibility: visible; */
+    /* transform: translateY(0) scale(1); */
+}
+
+.dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    color: var(--neutral-grey);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    font-family: "Noto Sans", sans-serif; /* Используем тот же шрифт */
+    font-variation-settings: "wdth" 120; /* Можно чуть сузить для компактности */
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: rgba(153, 221, 255, 0.15); /* Более заметный hover */
+    color: #b3e5fc; /* Светлее при наведении */
+    outline: none;
+}
+
+.dropdown-icon {
+    width: 24px; /* Выровнять с иконками в nav-items */
+    margin-right: 12px;
+    text-align: center;
+    color: #88aaff; /* Немного другой оттенок для иконок меню */
+    transition: color 0.2s ease;
+}
+
+.dropdown-item:hover .dropdown-icon,
+.dropdown-item:focus .dropdown-icon {
+    color: #99ddff; /* Ярче при наведении */
+}
+
+.dropdown-label {
+    flex-grow: 1;
+}
+
+.dropdown-divider {
+    height: 1px;
+    margin: 8px 0;
+    overflow: hidden;
+    background-color: rgba(104, 177, 255, 0.2); /* Разделитель в стиле неона */
+    border: none;
+}

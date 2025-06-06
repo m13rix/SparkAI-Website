@@ -1,0 +1,94 @@
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(10, 10, 32); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: all 1s ease;
+    backdrop-filter: var(--backdrop-blur-loading); /* Используем переменную для размытия загрузки */
+}
+
+.filedrop-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 32, 0.5); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    transition: all 1s ease;
+    backdrop-filter: var(--backdrop-blur-loading); /* Используем переменную для размытия загрузки */
+}
+
+.filedrop-overlay h1 {
+    font-size: 5em;
+    margin-bottom: 0px;
+    color: var(--accent-lighter); /* Используем переменную для акцентного цвета */
+    text-shadow: var(--text-shadow-accent-light); /* Используем переменную для тени */
+}
+
+.filedrop-overlay h2 {
+    color: var(--accent-main); /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 20px var(--accent-main); /* Используем переменную для тени */
+}
+
+.loading-spinner {
+    text-align: center;
+}
+
+.spinner {
+    border: 8px solid rgba(204, 238, 255, 0.3); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    border-top: 8px solid var(--accent-spinner); /* Используем переменную для цвета спиннера */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: rotateSpinner 1.2s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes rotateSpinner {
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+    color: var(--accent-lighter); /* Используем переменную для акцентного цвета */
+    font-size: 1.2em;
+    text-shadow: 0 0 5px rgba(204, 204, 255, 0.5); /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 2px;
+    background: var(--accent-slightly-lighter); /* Используем переменную для акцентного цвета */
+    box-shadow: 0 0 10px rgba(204, 204, 255, 0.5); /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+.done {
+    top: 0;
+    height: 100%;
+    width: 100%;
+    transition: all .33s ease;
+}
+
+.count {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-weight: 100;
+    font-size: 3em;
+    margin-top: -1.33em;
+    color: var(--accent-slightly-lighter); /* Используем переменную для акцентного цвета */
+}

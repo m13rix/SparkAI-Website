@@ -1,0 +1,27 @@
+main {
+    flex: 1;
+    position: relative; /* Для позиционирования псевдоэлементов */
+    overflow: hidden; /* Скрываем переполнение для анимаций */
+}
+
+/* Эффект фоновых линий */
+main::before,
+main::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--gradient-flickering-line); /* Используем переменную для градиента */
+    opacity: 0.6;
+    animation: flickeringLine 10s infinite alternate;
+}
+
+main::before {
+    left: 15%;
+}
+
+main::after {
+    right: 15%;
+    animation-delay: 5s;
+}

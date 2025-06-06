@@ -1,0 +1,58 @@
+<!-- Боковая панель -->
+<div class="sidebar">
+    <!-- Блок профиля с аватаром -->
+    <div class="profile">
+        <a href="#" class="logo-link">
+            <img src="resources/spark-uni-logo.svg" alt="Spark UNI Logo" class="logo">
+        </a>
+        <div class="avatar" id="avatar" style="display: none" aria-haspopup="true" aria-expanded="false" tabindex="0" role="button" aria-label="Меню пользователя">
+            <img src="https://media-hel3-1.cdn.whatsapp.net/v/t61.24694-24/422466771_7003764799691982_2222931704724344106_n.jpg?ccb=11-4&oh=01_Q5AaIXVloXi47IPRY9OEbPeJcdP7bRPnZGKE-vOz1_0DzfLf&oe=680394A2&_nc_sid=5e03e0&_nc_cat=111" id="avatar-image" alt="Avatar">
+        </div>
+        <a class="login-button" id="login-button" href="../auth.html" aria-label="Войти">Войти</a>
+    </div>
+
+    <!-- ВЫПАДАЮЩЕЕ МЕНЮ АВАТАРА -->
+    <div class="avatar-dropdown" id="avatar-dropdown">
+        <ul class="dropdown-menu" role="menu">
+            <li role="none"><a href="#" class="dropdown-item" role="menuitem">
+                <i class="fa-solid fa-gear dropdown-icon" aria-hidden="true"></i>
+                <span class="dropdown-label">Настройки</span>
+            </a></li>
+            <li role="none"><a href="#" class="dropdown-item" role="menuitem">
+                <i class="fa-solid fa-star dropdown-icon" aria-hidden="true"></i>
+                <span class="dropdown-label">Подписка</span>
+            </a></li>
+            <li role="none"><hr class="dropdown-divider"></li>
+            <li role="none"><a href="#" id="logout-button" class="dropdown-item" role="menuitem">
+                <i class="fa-solid fa-right-from-bracket dropdown-icon" aria-hidden="true"></i>
+                <span class="dropdown-label">Выйти</span>
+            </a></li>
+        </ul>
+    </div>
+    <!-- КОНЕЦ ВЫПАДАЮЩЕГО МЕНЮ -->
+
+
+    <div class="vertical-separator"></div>
+    <!-- Навигационные пункты -->
+    <div class="nav-items">
+        <!-- Режим "Решение заданий" -->
+        <div class="nav-item active">
+            <div class="icon"><i class="fa-solid fa-pencil"></i></div>
+            <span class="label">Решение заданий</span>
+        </div>
+        <!-- Режим "Составление конспектов" -->
+        <div class="nav-item">
+            <div class="icon"><i class="fa-solid fa-list-ul"></i></div>
+            <span class="label">[Coming soon]</span>
+        </div>
+    </div>
+    <!-- Футер с дополнительными элементами -->
+    <div class="sidebar-footer">
+        <div class="add-tool">
+            <svg class="icon" viewBox="0 0 24 24">
+                <path d="M19 11H13V5H11V11H5V13H11V19H13V13H19V11Z"/>
+            </svg>
+            <span class="label">[Coming soon]</span>
+        </div>
+    </div>
+</div>

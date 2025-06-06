@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_2" data-name="Слой_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 289 267">
+  <defs>
+    <style>
+      .cls-1 {
+        filter: url(#outer-glow-3);
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #9df;
+      }
+
+      .cls-2 {
+        filter: url(#outer-glow-1);
+      }
+
+      .cls-3 {
+        filter: url(#outer-glow-2);
+      }
+    </style>
+    <filter id="outer-glow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur" stdDeviation="16"/>
+      <feFlood flood-color="#9df" flood-opacity=".8"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="outer-glow-2" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur-2" stdDeviation="16"/>
+      <feFlood flood-color="#9df" flood-opacity=".8"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="outer-glow-3" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur-3" stdDeviation="16"/>
+      <feFlood flood-color="#9df" flood-opacity=".8"/>
+      <feComposite in2="blur-3" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="_Слой_1-2" data-name="Слой_1">
+    <path class="cls-2" d="M157.23,203.78l-12.88-36.52c-3.32-9.41-10.69-16.83-20.08-20.2l-36.43-13.11c-4.65-1.67-4.63-8.26.03-9.9l36.52-12.88c9.41-3.32,16.83-10.69,20.2-20.08l13.11-36.43c1.67-4.65,8.26-4.63,9.9.03l12.88,36.52c3.32,9.41,10.69,16.83,20.08,20.2l36.43,13.11c4.65,1.67,4.63,8.26-.03,9.9l-36.52,12.88c-9.41,3.32-16.83,10.69-20.2,20.08l-13.11,36.43c-1.67,4.65-8.26,4.63-9.9-.03Z"/>
+    <path class="cls-3" d="M82.45,217.03l-6.59-18.67c-1.16-3.3-3.74-5.89-7.03-7.08l-18.63-6.7c-1.95-.7-1.94-3.47.01-4.16l18.67-6.59c3.3-1.16,5.89-3.74,7.08-7.03l6.7-18.63c.7-1.95,3.47-1.94,4.16.01l6.59,18.67c1.16,3.3,3.74,5.89,7.03,7.08l18.63,6.7c1.95.7,1.94,3.47-.01,4.16l-18.67,6.59c-3.3,1.16-5.89,3.74-7.08,7.03l-6.7,18.63c-.7,1.95-3.47,1.94-4.16-.01Z"/>
+    <path class="cls-1" d="M96.46,102.09l-4.69-13.05c-1.05-2.93-3.37-5.24-6.31-6.28l-13.19-4.67c-1.97-.7-1.96-3.48.01-4.16l13.22-4.58c2.94-1.02,5.27-3.31,6.35-6.24l4.77-13.02c.71-1.94,3.45-1.93,4.15.01l4.69,13.05c1.05,2.93,3.37,5.24,6.31,6.28l13.19,4.67c1.97.7,1.96,3.48-.01,4.16l-13.22,4.58c-2.94,1.02-5.27,3.31-6.35,6.24l-4.77,13.02c-.71,1.94-3.45,1.93-4.15-.01Z"/>
+  </g>
+</svg>

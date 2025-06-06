@@ -1,0 +1,369 @@
+@import '../base/_variables.css';
+@import '../components/_forms.css';
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Roboto Mono', monospace;
+    overflow-x: hidden; /* Предотвращение горизонтальной прокрутки */
+}
+
+:root {
+    /* Параметры кнопки */
+    --btn-height: 48px;
+    --btn-radius: 24px;
+    --btn-bg: #1f1f1f;           /* фон */
+    --btn-border: #2d2d2d;       /* тонкая граница */
+    --btn-color: #ffffff;        /* цвет текста */
+    --gap: 12px;                 /* расстояние между иконкой и текстом */
+    --icon-size: 18px;           /* размер иконки */
+    --font-size: 14px;
+    --font-weight: 500;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden; /* Для Lenis */
+    position: relative;
+    background: radial-gradient(ellipse at bottom, #0b1c2b 0%, transparent 50%),
+    radial-gradient(ellipse at top, #1a0b2b 0%, transparent 50%);
+}
+
+/* Курсор */
+.cursor, .cursor-follower {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000; /* Убедитесь, что курсор поверх всего */
+}
+
+.cursor {
+    width: 8px;
+    height: 8px;
+    background-color: #99ddff;
+    mix-blend-mode: difference; /* Чтобы курсор был виден на любом фоне */
+    border: 1px solid #99ddff;
+    margin-left: -4px;
+    margin-top: -4px;
+    transition: transform 0.1s ease;
+}
+
+.cursor-follower {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #99ddff;
+    background-color: rgba(153, 221, 255, 0.2);
+    mix-blend-mode: difference;
+    margin-left: -15px;
+    margin-top: -15px;
+    transition: transform 0.11s ease; /* Более плавная анимация */
+}
+
+/* Шапка и подвал */
+.header, .footer {
+    padding: 20px 30px;
+    text-align: center;
+}
+
+.header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 30px;
+}
+
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: auto;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+.logo {
+    font-family: ' সত্ব', sans-serif;
+    font-size: 2em;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #99ddff, 0 0 20px #99ddff;
+}
+
+.spark-logo {
+    color: #99ddff;
+}
+
+.ai-logo {
+    color: #ccf;
+}
+
+
+/* Основной контент */
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.auth-container {
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Глассморфизм эффект (усиленный) */
+.glass-effect {
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.auth-title {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    color: #99ddff;
+    text-shadow: 0 0 8px #99ddff;
+}
+
+.auth-form, .success-message {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    color: #ccf;
+    font-weight: 500;
+}
+
+.input-group input {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #99ddff;
+    box-shadow: 0 0 8px rgba(153, 221, 255, 0.5);
+}
+
+.error-message {
+    color: #ff6666;
+    font-size: 0.9em;
+    margin-top: 5px;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.error-message.active {
+    opacity: 1;
+}
+
+
+.auth-button {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 10px;
+    background-color: #99ddff;
+    color: #0a0a0a;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(153, 221, 255, 0.5);
+}
+
+.auth-button:hover {
+    background-color: #b3e5fc; /* Более светлый оттенок при наведении */
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(153, 221, 255, 0.7);
+}
+
+.auth-button:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 5px rgba(153, 221, 255, 0.5);
+}
+
+
+.auth-switch {
+    margin-top: 15px;
+    font-size: 0.95em;
+    color: #ccc;
+}
+
+.auth-switch a {
+    color: #99ddff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-switch a:hover {
+    color: #b3e5fc;
+}
+
+/* Скрытый класс */
+.hidden {
+    display: none !important;
+}
+
+/* Сообщение об успехе */
+.success-message {
+    text-align: center;
+    color: #99ddff;
+    padding: 30px;
+    margin-left: -6%;
+    border-radius: 15px;
+}
+
+.success-message h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #99ddff;
+}
+
+.success-message p {
+    font-size: 1.1em;
+    color: #ccf;
+}
+
+
+/* Анимации GSAP (начальные состояния) */
+.auth-form, .success-message {
+    opacity: 0;
+    y: 30px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ccf;
+    font-size: 0.95em;
+}
+.checkbox-label input {
+    width: auto;
+    margin: 0;
+}
+
+
+
+/* Адаптивность (простое) */
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 90%;
+    }
+
+    .auth-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .auth-form, .success-message {
+        gap: 20px;
+    }
+
+    .input-group label {
+        margin-bottom: 6px;
+    }
+
+    .input-group input {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+
+    .auth-button {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+
+    .auth-switch {
+        font-size: 0.9em;
+    }
+
+    .success-message {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .success-message h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+
+    .success-message p {
+        font-size: 1em;
+    }
+
+    .main {
+        padding: 0;
+    }
+}
+
+#spectralCanvas {
+    position: fixed; /* Фиксированное позиционирование относительно окна браузера */
+    filter: brightness(20%);
+    -webkit-filter: brightness(20%);
+    -moz-filter: brightness(20%);
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% ширины viewport */
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh; /* 100% высоты viewport */
+    z-index: -1; /* Размещаем за другими элементами */
+    transition: opacity 1s ease;
+}
+
+.google-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--btn-height);
+    padding: 2px var(--gap);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    color: var(--btn-color);
+    font-size: 1em;
+    font-weight: var(--font-weight);
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    line-height: 1;
+    transition: all ease 0.3s;
+}
+
+.google-btn__icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-right: var(--gap);
+    display: block;
+}
+
+.google-btn:hover {
+    transform: scale(1.03);
+}
+
+.google-btn:active {
+    background-color: #161616;
+}

@@ -1,0 +1,290 @@
+.cta-button {
+    backdrop-filter: var(--backdrop-blur-button); /* Используем переменную для размытия кнопки */
+    -webkit-backdrop-filter: var(--backdrop-blur-button);
+    background-color: var(--button-primary-bg); /* Используем переменную для фона кнопки */
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    color: var(--primary-background); /* Используем переменную для черного */
+    padding: 18px 40px;
+    font-size: 1.3em;
+    cursor: pointer;
+    box-shadow: var(--box-shadow-button-inset); /* Используем переменную для тени */
+    filter: var(--drop-shadow-button); /* Используем переменную для тени */
+    outline: none; /* Убираем стандартное выделение при фокусе */
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 50px;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.cta-button:active {
+    background-color: rgba(177, 200, 250, 0.9); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    opacity: 0.5;
+}
+
+.cta-button i {
+    font-size: 1.1em;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-button-shine); /* Используем переменную для градиента блеска */
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.cta-button:hover::before {
+    transform: translateX(100%);
+}
+
+.cta-button:hover {
+    scale: 1.05;
+    filter: var(--drop-shadow-button-hover) ; /* Используем переменную для тени при наведении */
+}
+
+.my-button {
+    padding: 25px 40px;
+    background: none;
+    border: none;
+    background-image: url('Button.png'); /* Фиолетовый градиент */
+    background-size: contain;
+    outline: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1150px;
+    filter: var(--drop-shadow-image-button) ; /* Используем переменную для тени */
+    -webkit-filter: var(--drop-shadow-image-button);
+    -moz-filter: var(--drop-shadow-image-button);
+    color: var(--primary-text); /* Используем переменную для белого */
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    position: relative;
+    margin-top: 40px;
+    transition: all 1s;
+    overflow: hidden; /* Чтобы псевдоэлемент не выходил за границы */
+}
+
+
+.my-button:hover {
+    filter: var(--drop-shadow-image-button-hover) ; /* Используем переменную для тени при наведении */
+    -webkit-filter: var(--drop-shadow-image-button-hover);
+    -moz-filter: var(--drop-shadow-image-button-hover);
+    opacity: 1;
+    scale: 1.1;
+}
+
+.option-button {
+    background: none;
+    color: var(--accent-lighter); /* Используем переменную для акцентного цвета */
+    font-weight: bold;
+    border: none;
+    text-shadow: var(--text-shadow-accent-light); /* Используем переменную для тени */
+    padding: 5px;
+    margin-top: 7px;
+    cursor: pointer;
+    font-size: 1.3em;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.option-button i {
+    font-size: 0.9em;
+}
+
+.option-button:hover {
+    text-shadow: 0 0 30px rgba(204, 204, 255, 1); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    scale: 1.1;
+}
+
+.cta-button.solve-action {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Общие стили для кнопок */
+.capture-button, .back-button {
+    background-color: var(--button-primary-bg); /* Используем переменную для фона кнопки */
+    box-shadow: var(--box-shadow-button-inset); /* Используем переменную для тени */
+    filter: var(--drop-shadow-button); /* Используем переменную для тени */
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.5s ease; /* Плавная анимация при нажатии */
+}
+
+/* Большой стиль для кнопки захвата */
+.capture-button {
+    width: 70px;
+    height: 70px;
+}
+
+/* Кнопки с иконками */
+.capture-button i, .back-button i {
+    font-size: 24px; /* Размер иконок */
+    color: var(--primary-background); /* Используем переменную для черного */
+}
+
+/* Стили для кнопки назад */
+.back-button {
+    width: 50px;
+    height: 50px;
+}
+
+/* Анимация при нажатии */
+.capture-button:active, .back-button:active {
+    transform: scale(0.9); /* Уменьшает кнопку при нажатии */
+}
+
+.capture-button:hover, .back-button:hover {
+    filter: var(--drop-shadow-button-hover); /* Используем переменную для тени при наведении */
+    transform: scale(1.05); /* Уменьшает кнопку при нажатии */
+}
+
+.record-button {
+    background-color: var(--button-record-bg); /* Используем переменную для фона кнопки записи */
+    color: var(--primary-background); /* Используем переменную для черного */
+    border: none;
+    padding: 18px 30px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.7); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.record-button i {
+    font-size: 1em;
+}
+
+.record-button:hover {
+    background-color: var(--button-record-hover-bg); /* Используем переменную для фона кнопки записи при наведении */
+    box-shadow: 0 0 20px rgba(127, 204, 130, 0.9); /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+#stop-record-button:disabled {
+    background-color: var(--button-record-disabled-bg); /* Используем переменную для фона кнопки записи в отключенном состоянии */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+#solve-button {
+    padding: 16px;
+    font-size: 19px;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 2px solid var(--border-neon);
+    box-shadow: var(--box-shadow-inset); /* Используем переменную для тени */
+    filter: var(--drop-shadow);
+    border-radius: 12px;
+    background-color: rgba(22, 24, 24, 0.1);
+    color: var(--accent-lighter); /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 20px var(--accent-lighter); /* Используем переменную для акцентного цвета */
+    cursor: pointer;
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: stretch;
+    width: 100%;
+}
+
+#solve-button i {
+    margin-right: 12px;
+    font-size: 1.1em;
+}
+
+#solve-button:hover {
+    transform: translateY(-2px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: #121212;
+    box-shadow: var(--box-shadow-button-inset); /* Используем переменную для тени */
+    filter: var(--drop-shadow-button); /* Используем переменную для тени */
+}
+
+#solve-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 15px rgba(44,194,149, 0.5);
+}
+
+
+.buttons {
+    background-color: #17307F;
+    border: none;
+    color: white;
+    padding: 12px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px;
+    border-radius: 100px;
+    height: 11%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+#circle {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    border-radius: 1000px;
+    background-color: var(--button-primary-bg);
+    opacity: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.fas {
+    z-index: 99999;
+    pointer-events: none;
+}
+
+.text {
+    z-index: 99999;
+    pointer-events: none;
+}
+
+#backButton {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+#backButton svg {
+    transform: rotate(180deg);
+}
+
+.buttons svg {
+    z-index: 999;
+}
+
+#nextButton {
+    margin-left: 40px;
+    margin-top: 20px;
+}

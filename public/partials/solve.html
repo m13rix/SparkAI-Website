@@ -1,0 +1,123 @@
+<section id="solve-form-section" class="solve-form">
+    <div class="form-container">
+        <h2><i class="fas fa-pen-nib"></i> Решение упражнения</h2>
+        <div class="glass-container" id="solve-glass">
+            <div class="input-group" id="task-input-group">
+                <label for="task-input"><i class="fas fa-file-alt"></i> Введите задание</label>
+                <textarea id="task-input" placeholder="Введите текст вашего задания, загрузите или сфотографируйте его."></textarea>
+                <div class="input-options">
+                    <label class="option-button" id="custom-camera-button">
+                        <i class="fas fa-camera"></i>
+                        <input type="file"
+                               id="cameraInput"
+                               accept="image/*"
+                               capture="environment"
+                               style="display: none;">
+                    </label>
+                    <button id="photo-option" class="option-button">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button id="import-option" class="option-button">
+                        <i class="fas fa-file-import"></i>
+                    </button>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+            </div>
+            <div class="input-group" id="task-number-group" style="display: none;">
+                <label for="task-number-input"><i class="fas fa-file-alt"></i>Введите задание</label>
+                <canvas id="camera-canvas"></canvas>
+                <textarea id="task-number-input" placeholder="Номер или текст задания"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="notes-input"><i class="fa-solid fa-sliders"></i> Дополнительные примечания</label>
+                <textarea id="notes-input" placeholder="Уточните класс, предмет, или другие детали. Чем точнее примечания, тем качественее результат" style="height: 100px"></textarea>
+            </div>
+        </div>
+        <button class="buttons" id="solve-button">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <i class="text">Решить задание</i>
+            <span id="circle"></span>
+        </button>
+    </div>
+</section>
+
+<section id="photo-menu" class="fullscreen-menu" style="display: none;">
+    <div class="menu-container">
+        <div class="camera-wrapper">
+            <video id="camera-preview" autoplay playsinline muted></video>
+        </div>
+        <div class="camera-controls">
+            <button id="capture-button" class="capture-button">
+                <i class="fas fa-camera"></i>
+            </button>
+            <button id="photo-menu-back" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section id="record-menu" class="fullscreen-menu" style="display: none;">
+    <div class="menu-container">
+        <h2><i class="fas fa-microphone"></i> Запись голосом</h2>
+        <div class="recording-controls">
+            <button id="start-record-button" class="record-button">
+                <i class="fas fa-record-vinyl"></i> Начать запись
+            </button>
+            <button id="stop-record-button" class="record-button" disabled>
+                <i class="fas fa-stop-circle"></i> Остановить запись
+            </button>
+        </div>
+        <div id="recording-status">Ожидание записи...</div>
+        <button id="record-menu-back" class="back-button">
+            <i class="fas fa-arrow-left"></i> Назад
+        </button>
+    </div>
+</section>
+
+<section id="loading-section" class="loading-overlay" style="display: none;">
+    <h1 class="loading-text"></h1>
+    <div class="progress-bar"></div>
+    <h1 class="count"></h1>
+</section>
+
+<section id="filedrop-section" class="filedrop-overlay" style="display: none;">
+    <h1><i class="fa-solid fa-paste"></i></h1>
+    <h2>Добавьте ваши файлы</h2>
+</section>
+
+<section id="solution-section" class="solution" style="display: none;">
+    <div class="solution-container">
+        <h2><i class="fas fa-check-circle"></i> Готовое решение</h2>
+        <div class="glass-container" style="margin-left: -7px;">
+            <div class="solution-text">
+                <p>Здесь будет отображаться решение.</p>
+            </div>
+            <div class="chat-interface">
+                <h3><i class="fas fa-comments"></i> Задать вопрос или уточнить</h3>
+                <div class="chat-messages">
+
+                </div>
+                <div class="chat-input-container">
+                    <div class="chat-input-glass">
+                        <div class="chat-input">
+                            <input type="text"
+                                   id="chat-input"
+                                   placeholder="✎ Введите сообщение..."
+                                   aria-label="Поле ввода сообщения">
+                            <button id="send-button" aria-label="Отправить сообщение">
+                                <div class="button-inner">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <div class="button-glow"></div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="donate-banner">
+                <p>Спасибо, что пользуетесь Spark AI! Если вам помог наш сервис, вы можете поддержать проект.</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,65 @@
+/* Объявление переменных */
+:root {
+    /* Основные цвета */
+    --primary-background: #0a0a0a; /* Черный фон */
+    --primary-text: #f0f0f0;        /* Светло-серый текст */
+    --accent-main: #8fc3f9;      /* Основной акцентный неоновый голубой */
+    --accent-lighter: #98a5fd;     /* Более светлый акцентный голубой (заголовки) */
+    --accent-slightly-lighter: #98a5fd; /* Ещё светлее акцентный (заголовки решений, юзер сообщения) */
+    --accent-button-base: #8fc3f9; /* Базовый цвет для кнопок акцента */
+    --accent-icon: #8fc3f9;       /* Акцентный цвет для иконок */
+    --accent-border-active: #84ccff; /* Активная граница и граница активных опций */
+    --accent-glow-pulse: #8fc3f9;    /* Цвет пульсирующего свечения */
+    --accent-link: #99bbff;       /* Цвет ссылок */
+    --accent-spinner: #8fc3f9;    /* Цвет спиннера */
+
+    /* Нейтральные цвета */
+    --neutral-light-grey: #ccc;   /* Светло-серый для навигации */
+    --neutral-grey: rgba(152, 152, 152, 0.8);         /* Серый для футера */
+    --neutral-border: #ddd;       /* Серый для границ таблиц */
+    --neutral-background-light: #f0f0f0; /* Светлый фон для элементов (таблица header) */
+    --neutral-description: #98a5fd;    /* Цвет описания опций */
+    --neutral-title: #e0f7fa;          /* Цвет заголовков опций */
+
+    /* Цвета фона для темных элементов */
+    --dark-bg-transparent: rgba(26, 26, 26, 0.5); /* Полупрозрачный темный фон (формы, решения, чат) */
+    --sidebar-bg-transparent: rgba(12, 12, 12, 0.3); /* Полупрозрачный темный фон (формы, решения, чат) */
+    --darker-bg-transparent: rgba(26, 26, 26, 0.5); /* Более темный полупрозрачный фон (сообщения чата) */
+    --darkest-bg: #0a0a0a;                 /* Самый темный фон (опции решений) */
+
+    /* Границы */
+    --border-neon-light: rgba(80, 121, 154, 0.5); /* Тонкая неоновая граница */
+    --border-neon: rgba(153, 204, 255, 0.5);     /* Неоновая граница средней толщины */
+    --border-accent: rgba(152, 165, 253, 0.5);     /* Неоновая граница средней толщины */
+    --border-option: #4b5563;                  /* Граница опций решения */
+
+    /* Градиенты */
+    --gradient-flickering-line: linear-gradient(to bottom, transparent, rgba(102, 153, 255, 0), transparent); /* Градиент для мерцающих линий */
+    --gradient-button-shine: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Градиент блеска для кнопок */
+
+    /* Цвета кнопок */
+    --button-primary-bg: rgb(96, 174, 255); /* Основной цвет фона кнопок действий */
+    --button-record-bg: rgba(76, 175, 80, 0.9);   /* Фон кнопки записи */
+    --button-record-hover-bg: rgba(127, 204, 130, 1); /* Фон кнопки записи при наведении */
+    --button-record-disabled-bg: rgba(128, 142, 131, 0.7); /* Фон кнопки записи в отключенном состоянии */
+
+    /* Тени текста и блоков */
+    --text-shadow-accent-light: 0 0 10px rgb(152, 165, 253); /* Легкая тень для акцентного текста */
+    --box-shadow-neon-medium: 0 0 10px rgba(153, 204, 255, 0.3); /* Тень средней интенсивности для неоновых элементов */
+    --box-shadow-neon-light: 0 0 10px rgba(132, 204, 255, 0.6);  /* Легкая тень для неоновых элементов */
+    --box-shadow-button-inset: inset 0 0 20px rgb(189, 221, 255); /* Внутренняя тень для кнопок */
+    --drop-shadow-button: drop-shadow(0px 0px 16px rgb(104, 177, 255)); /* Тень для кнопок */
+    --box-shadow-inset: inset 0 0 10px rgb(104, 177, 255, 0.4); /* Внутренняя тень для кнопок */
+    --drop-shadow: drop-shadow(0px 0px 10px rgb(104, 177, 255, 0.4)); /* Тень для кнопок */
+    --drop-shadow-button-hover: drop-shadow(0px 0px 23px rgb(104, 177, 255)); /* Тень для кнопок при наведении */
+    --drop-shadow-image-button: drop-shadow(0px 0px 16px rgba(0, 0, 0, 0.5)); /* Тень для кнопок-изображений */
+    --drop-shadow-image-button-hover: drop-shadow(0px 0px 16px rgb(152, 165, 253)); /* Тень для кнопок-изображений при наведении */
+    --box-shadow-chat-messages: 2px 2px 5px rgba(102, 153, 255, 0.1); /* Тень для сообщений чата */
+    --box-shadow-menu-camera: 0 0 15px rgb(152, 165, 253); /* Тень для камеры в меню */
+
+    /* Размытие фона */
+    --backdrop-blur-medium: blur(16px) saturate(180%); /* Среднее размытие фона */
+    --backdrop-blur-strong: blur(20px) saturate(180%); /* Сильное размытие фона */
+    --backdrop-blur-button: blur(22px) saturate(200%); /* Размытие для кнопок */
+    --backdrop-blur-loading: blur(10px);               /* Размытие для загрузки */
+}

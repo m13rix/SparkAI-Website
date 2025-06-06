@@ -1,0 +1,36 @@
+@keyframes flickeringLine {
+    0% { opacity: 0.6; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: var(--text-shadow-accent-light); /* Используем переменную для тени */
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(204, 204, 255, 1); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    }
+    100% {
+        box-shadow: var(--text-shadow-accent-light); /* Используем переменную для тени */
+    }
+}
+
+@keyframes rotateSpinner {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+    from {
+        box-shadow: 0 0 10px var(--accent-border-active); /* Используем переменную для активной границы */
+    }
+    to {
+        box-shadow: 0 0 20px var(--accent-glow-pulse); /* Используем переменную для пульсирующего свечения */
+    }
+}

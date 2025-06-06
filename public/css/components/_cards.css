@@ -1,0 +1,399 @@
+/* Solution Section */
+.solution {
+    padding: 80px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 1s forwards 0.9s;
+}
+
+.solution-container {
+    margin: 0 auto;
+    background: none;
+    border-radius: 10px;
+}
+
+.solution h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--accent-slightly-lighter); /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 10px rgba(204, 204, 255, 0.7); /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+/* Стили для MathJax формул */
+.mjx-math { /* Общий класс для MathJax math container */
+    color: var(--accent-main) !important; /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 10px rgba(153, 221, 255, 0.7) !important; /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+/* Дополнительные стили для элементов внутри MathJax, если нужно */
+.mjx-math * {
+    color: var(--accent-main) !important; /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 10px rgba(153, 221, 255, 0.7) !important; /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+/* Стили для <strong> элементов */
+strong {
+    color: var(--accent-main); /* Используем переменную для акцентного цвета */
+    text-shadow: 0 0 10px rgba(153, 221, 255, 0.7); /* Можно оставить как есть или сделать переменную с прозрачностью */
+}
+
+.solution h2 i {
+    margin-right: 10px;
+}
+
+.solution-text {
+    padding: 30px;
+    max-width: 800px;
+    white-space: pre-line;
+    border: none; /* Используем переменную для неоновой границы */
+    overflow-x: auto; /* Allow horizontal scrolling for long code blocks */
+    background: none;
+    align-self: center;
+    text-align: left;
+}
+
+.solution-text h2 {
+    text-align: left;
+    margin: 5px;
+    font-size: 2em;
+}
+
+.solution-text ul {
+    margin: 0px;
+}
+
+.loading-text {
+    margin-top: 3em;
+    font-style: italic;
+    text-align: center;
+    font-weight: 300;
+    font-size: 2em;
+    color: var(--accent-slightly-lighter); /* Используем переменную для акцентного цвета */
+}
+
+.chat-messages {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    align-self: center;
+    width: 100%;
+}
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.message-container {
+    position: relative;
+    max-width: 85%;
+    width: fit-content;
+}
+
+.user {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.message {
+    position: relative;
+    padding: 1.5rem 1.5rem;
+    border-radius: 1.2rem;
+    backdrop-filter: var(--backdrop-blur-medium);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid transparent;
+    overflow: hidden;
+}
+
+.message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            145deg,
+            rgba(143, 195, 249, 0.15) 0%,
+            rgba(143, 195, 249, 0.05) 100%
+    );
+    z-index: -1;
+}
+
+/* Bot Message Styling */
+.bot-message {
+    background: rgba(26, 26, 26, 0.45);
+    border-color: rgba(143, 195, 249, 0.3);
+    box-shadow: 0 4px 30px rgba(143, 195, 249, 0.1),
+    inset 0 0 12px rgba(143, 195, 249, 0.08);
+    color: var(--primary-text);
+}
+
+.bot-message .message-header {
+    color: var(--accent-main);
+    margin-bottom: 1rem;
+}
+
+/* User Message Styling */
+.user-message {
+    background: linear-gradient(
+            135deg,
+            rgba(152, 165, 253, 0.18) 0%,
+            rgba(152, 165, 253, 0.08) 100%
+    );
+    border-color: rgba(152, 165, 253, 0.4);
+    box-shadow: 0 4px 30px rgba(152, 165, 253, 0.15),
+    inset 0 0 15px rgba(152, 165, 253, 0.1);
+    color: var(--accent-slightly-lighter);
+    margin-left: auto;
+}
+
+.user-message .message-header {
+    color: var(--accent-lighter);
+    margin-bottom: 1rem;
+    justify-content: flex-end;
+}
+
+/* Message Content Styling */
+.message-content {
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+}
+
+.ai-message-content {
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.ai-icon, .user-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.neon-glow::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+            45deg,
+            var(--accent-main),
+            var(--accent-lighter),
+            var(--accent-main)
+    );
+    z-index: -1;
+    filter: blur(12px);
+    opacity: 0.15;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+    margin: 10px;
+}
+
+.fade-word, .fade-element {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.model-thought {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 1px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-top: -20px;
+}
+
+.model-thought::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg,
+    rgba(124, 124, 124, 0) 0%,
+    rgba(163, 163, 163, 0.6) 50%,
+    rgba(124, 124, 124, 0) 100%);
+}
+
+.model-thought-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    margin-top: -20px;
+}
+
+.model-thought-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.model-thought-header::after {
+    content: '↓';
+    font-size: 0.9em;
+    color: #888;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.model-thought-header.collapsed::after {
+    transform: rotate(-90deg);
+}
+
+.model-thought-title {
+    color: #8e8e8e;
+    font-size: 0.85em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-left: 24px;
+}
+
+.model-thought-content {
+    padding: 18px 30px 22px 50px;
+    color: rgba(200, 200, 200, 0.8);
+    font-size: 0.95em;
+    line-height: 1.6;
+    position: relative;
+    margin-top: -30px;
+    margin-bottom: -60px;
+    text-align: left;
+}
+
+.model-thought-content::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Анимация сворачивания */
+.model-thought-content {
+    will-change: height, opacity;
+}
+
+.solution-type-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Ограничим ширину для центровки */
+    margin: 20px auto; /* Центрирование по горизонтали */
+    padding: 20px;
+}
+
+.selection-title {
+    font-size: 1.2rem;
+    color: var(--accent-lighter); /* Используем переменную для акцентного цвета */
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(204, 204, 255, 0.6); /* Можно оставить как есть или сделать переменную с прозрачностью */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.solution-options-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.solution-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--darkest-bg); /* Используем переменную для самого темного фона */
+    border: 1px solid var(--border-option); /* Используем переменную для границы опций */
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: hidden; /* Чтобы свечение не выходило за границы */
+}
+
+.solution-option:hover {
+    transform: scale(1.03);
+    box-shadow: var(--box-shadow-neon-light); /* Используем переменную для тени */
+}
+
+.solution-option.active {
+    border-color: var(--accent-border-active); /* Используем переменную для активной границы */
+    box-shadow: 0 0 15px var(--accent-border-active); /* Используем переменную для тени активной границы */
+}
+
+.solution-option i {
+    font-size: 1.5rem;
+    color: var(--accent-icon); /* Используем переменную для акцентного цвета иконок */
+    margin-right: 15px;
+    text-shadow: 0 0 8px var(--accent-icon); /* Используем переменную для тени иконок */
+}
+
+.option-text {
+    flex-grow: 1;
+}
+
+.option-name {
+    font-weight: bold;
+    color: var(--neutral-title); /* Используем переменную для заголовка опции */
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px var(--accent-border-active); /* Используем переменную для тени активной границы */
+}
+
+.option-description {
+    font-size: 0.9rem;
+    color: var(--neutral-description); /* Используем переменную для описания опции */
+}
+
+.glowing-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    pointer-events: none; /* Чтобы не мешал кликам */
+    box-shadow: var(--box-shadow-neon-light); /* Используем переменную для легкой тени */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.solution-option:hover .glowing-border,
+.solution-option.active .glowing-border {
+    opacity: 1;
+}
+
+
+/* Анимация пульсации для активной опции */
+.solution-option.active .glowing-border {
+    animation: pulse-glow 1.5s infinite alternate;
+}
