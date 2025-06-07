@@ -34,26 +34,15 @@
 
     <!-- Базовые стили -->
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
-<div class="horizontal-container" style="background: radial-gradient(ellipse at bottom, #0b1c2b 0%, transparent 50%), radial-gradient(ellipse at top, #1a0b2b 0%, transparent 50%);">
-    <div id="sidebar-container"></div>
-    <div class="app-container">
-        <canvas id="spectralCanvas"></canvas>
-
-        <div id="header-container"></div>
-
-        <main>
-            <iframe
-                    class="embedded-site"
-                    src="https://spark-ai.up.railway.app/"
-                    title="Сайт инструмента">
-            </iframe>
-        </main>
-
-        <div id="footer-container"></div>
-    </div>
-</div>
+<div id="solve-container"></div>
 <script src="js/ui/partials.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/diff@7.0.0/dist/diff.min.js"></script>

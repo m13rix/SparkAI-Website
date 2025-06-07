@@ -17,7 +17,6 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background: radial-gradient(ellipse at bottom, #0b1c2b 0%, transparent 50%), radial-gradient(ellipse at top, #1a0b2b 0%, transparent 50%);
 }
 
 .container {
@@ -38,4 +37,10 @@ body {
             1px solid rgba(255, 255, 255, 0.05);
     margin-bottom: 24px;
     margin-top: 10px;
+}
+
+.embedded-site {
+    width: 100%; /* Занять всю доступную ширину */
+    height: 100%;
+    border: none;
 }

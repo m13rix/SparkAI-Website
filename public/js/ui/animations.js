@@ -56,6 +56,7 @@ async function init(){
     await sleep(200)
     var sidebarToggle = document.querySelector('#toggle-sidebar');
     var sidebar = document.querySelector('.sidebar');
+    var header = document.querySelector('header');
     var main = document.querySelector('main');
     var footer = document.querySelector('#footer-container');
 
@@ -64,6 +65,13 @@ async function init(){
         opacity: 0,
         duration: 0.4,
         filter: 'blur(16px)',
+        ease: 'power2.inOut',
+        paused: true
+    });
+
+    const animation2 = gsap.to(header, {
+        left: 0,
+        width: '100%',
         ease: 'power2.inOut',
         paused: true
     });
@@ -88,6 +96,7 @@ async function init(){
 // Закрываем sidebar по умолчанию на мобильных устройствах
     if (window.matchMedia('(max-width: 600px)').matches) {
         animation.progress(1); // Устанавливаем анимацию в конечное состояние
+        animation2.progress(1); // Устанавливаем анимацию в конечное состояние
         sidebarToggle.classList.add('collapsed'); // Добавляем класс collapsed если нужно
     }
 
@@ -95,12 +104,14 @@ async function init(){
         sidebarToggle.classList.toggle('collapsed');
         if (animation.progress() === 0) {
             animation.play();
+            animation2.play();
             if (window.matchMedia('(max-width: 600px)').matches) {
                 animationMobile1.reverse();
                 animationMobile2.reverse();
             }
         } else {
             animation.reverse();
+            animation2.reverse();
             if (window.matchMedia('(max-width: 600px)').matches) {
                 animationMobile1.play();
                 animationMobile2.play();

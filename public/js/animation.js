@@ -142,6 +142,7 @@ const Animation = (() => {
 
     function drawProgress() {
         const bar = document.querySelector('.progress-bar');
+        if (!bar) return;
         const counter = document.querySelector('.count');
         if (i <= maxPercent) {
             const r = Math.random() / animationSpeed;

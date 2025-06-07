@@ -2,6 +2,7 @@ main {
     flex: 1;
     position: relative; /* Для позиционирования псевдоэлементов */
     overflow: hidden; /* Скрываем переполнение для анимаций */
+    margin-top: var(--header-height);
 }
 
 /* Эффект фоновых линий */
