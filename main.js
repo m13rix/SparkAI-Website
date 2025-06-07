@@ -25,14 +25,14 @@ const { GET_USER, DELETE_USER, UPDATE_USER } = require("./server-modules/userSto
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(express.static(path.join(__dirname, 'public',)));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/homework', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'homework.html'));
+});
 
 app.get('/auth', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'auth.html'));
-});
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'homework.html'));
 });
 
 const apiKey = "AIzaSyBObj6RwJeoUvFwbayHRvf-vUj35N2x4Hk";
