@@ -190,4 +190,16 @@
     .option-description {
         font-size: 0.8rem;
     }
+    #footer-container {
+        display: none;
+    }
+    #mobile-logo img {
+        margin-right: 25vw;
+    }
+}
+
+@media (min-width: 600px) {
+    #mobile-logo {
+        display: none;
+    }
 }

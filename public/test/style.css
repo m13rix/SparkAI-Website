@@ -1,367 +1,88 @@
-/* css.css */
-:root {
-    --bg: #0F0F0F;
-    --neon: #46dfb1;
-    --secondary: #09d1c7;
-    --secondary-darker: #15919b;
-    --text: rgba(255, 255, 255, 0.92);
-    --border: rgba(255, 255, 255, 0.12);
-    --accent-bg: rgba(9, 209, 199, 0.03);
-    --code-bg: rgba(0, 240, 255, 0.02);
-}
-
 body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
     margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #fff;
+    /*
+     * ВАЖНО: Фоновое изображение, которое будет использоваться для эффекта.
+     * Шейдер будет использовать именно его.
+     */
+    background-image: url('https://images.unsplash.com/photo-1549138144-42ff3cdd2bf8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; /* Важно для корректного позиционирования эффекта при прокрутке */
     min-height: 100vh;
     overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Главный контейнер */
-.app-container {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    height: 100vh;
-}
-
-/* Боковая панель */
-.side-nav {
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.2); /* Slightly darker sidebar for depth */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* For Safari */
-}
-
-.nav-icon {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: var(--text); /* Default icon color */
-}
-
-.nav-icon:hover, .nav-icon.active-nav {
-    border-color: var(--neon);
-    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
-    color: var(--secondary); /* Active/Hover icon color */
-    background-color: var(--accent-bg); /* Subtle background highlight on hover/active */
-}
-
-.nav-icon.active-nav {
-    background-color: var(--accent-bg);
-}
-
-
-/* Основная область */
-.main-content {
-    padding: 32px;
-    position: relative;
-}
-
-/* Поле ввода */
-.input-container {
-    max-width: 800px;
+.background-content {
+    padding: 40px;
+    max-width: 900px;
     margin: 0 auto;
-    position: relative;
 }
 
-.task-input {
-    width: 100%;
+h1, h2 {
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.color-blocks {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.block {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+.block.red { background-color: #e74c3c; }
+.block.green { background-color: #2ecc71; }
+.block.blue { background-color: #3498db; }
+.block.yellow { background-color: #f1c40f; }
+
+
+/*
+ * Стили для нашего целевого элемента.
+ * Он должен быть позиционирован, а его фон и рамка - прозрачными,
+ * так как рендеринг будет осуществляться через Canvas.
+ */
+.glass-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 320px;
+    height: 450px;
+    border-radius: 20px; /* Этот border-radius будет симулирован в шейдере */
+
+    /* Сбрасываем фон и рамку, так как их заменит canvas */
     background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    font-size: 18px;
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(8px);
-    resize: none; /* Disable textarea resize */
-    height: 120px; /* Fixed height for textarea */
-    line-height: 1.6; /* Improve line spacing in textarea */
-}
-
-.task-input::placeholder {
-    color: rgba(255, 255, 255, 0.4); /* Muted placeholder text */
-}
-
-.task-input:focus {
-    outline: none;
-    border-color: var(--neon);
-    box-shadow: 0 0 32px rgba(0, 240, 255, 0.2);
-}
-
-.input-buttons {
-    position: absolute;
-    right: 16px;
-    top: 16px; /* Adjusted to top-right corner */
-    display: flex;
-    gap: 8px;
-}
-
-.input-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--accent-bg);
     border: none;
-    color: var(--neon);
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+
+    /* Стили для внутреннего контента */
+    padding: 25px;
+    box-sizing: border-box;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.input-btn:hover {
-    background: var(--neon);
-    color: var(--bg);
-    transform: scale(1.1);
-}
-
-.input-btn:active {
-    transform: scale(0.95);
-}
-
-/* Блок ответа ИИ */
-.ai-response {
-    margin-top: 32px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.1); /* Subtle background for AI response block */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.ai-response.hidden {
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
-}
-
-.ai-response::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--neon), var(--secondary), transparent);
-    animation: neon-line 2s linear infinite; /* Animated neon line */
-}
-
-@keyframes neon-line {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
-
-
-.thinking-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Space Grotesk', sans-serif;
-    margin-bottom: 20px;
-    opacity: 0.7; /* Muted header text */
-}
-
-.thinking-dots {
-    display: flex;
-    gap: 4px;
-}
-
-.thinking-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--neon);
-    border-radius: 50%;
-    animation: pulse 1.4s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.9);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.ai-solution-content.hidden-content {
-    opacity: 0;
-    transform: translateY(10px);
-}
-
-/* Интерактивная схема */
-.interactive-diagram {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Wider diagram nodes */
-    gap: 16px;
-    margin-top: 24px;
-}
-
-.diagram-node {
-    border: 1px solid var(--border);
-    padding: 20px; /* Increased padding */
-    border-radius: 12px; /* More rounded corners */
-    cursor: pointer;
-    transition: border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    background-color: var(--accent-bg); /* Background for diagram nodes */
-}
-
-.diagram-node h4 {
-    font-family: 'Space Grotesk', sans-serif;
+/* Внутренний контент карточки для демонстрации */
+.glass-card h2 {
     margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--secondary); /* Neon title for steps */
-    font-size: 20px;
-}
-
-.diagram-node p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.5;
-    opacity: 0.8; /* Muted description text */
-}
-
-
-.diagram-node:hover {
-    border-color: var(--neon);
-    transform: translateY(-4px); /* Slightly more pronounced lift on hover */
-    box-shadow: 0 8px 24px rgba(0, 240, 255, 0.15);
-}
-
-.diagram-node:active {
-    transform: scale(0.98);
-}
-
-
-/* Прогресс бар */
-.progress-radial {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--accent-bg); /* Background for progress radial */
-    position: relative;
-    margin: 24px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.progress-radial-bar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: conic-gradient(var(--secondary-darker) 75%, transparent 0); /* Neon progress bar */
-    mask: radial-gradient(circle at center, transparent 60%, black 65%); /* Create donut effect */
-    -webkit-mask: radial-gradient(circle at center, transparent 60%, black 65%); /* Safari */
-}
-
-
-.progress-radial-label {
-    position: absolute;
     font-size: 24px;
-    color: var(--neon);
-    font-family: 'Space Grotesk', sans-serif;
 }
-
-/* Code Block */
-.code-block {
-    background: var(--code-bg);
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid var(--secondary);
-    overflow-x: auto; /* Enable horizontal scroll for long code */
-    margin-top: 20px;
+.glass-card .chip {
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(45deg, #d4af37, #b48b22);
+    border-radius: 6px;
+    margin: 20px 0;
 }
-
-.code-text {
-    color: var(--secondary-darker);
-    font-family: monospace;
-    font-size: 14px;
-    white-space: pre; /* Preserve whitespace and line breaks */
-    display: block; /* Ensure pre is block level for full width */
-}
-
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .app-container {
-        grid-template-columns: 1fr;
-    }
-
-    .side-nav {
-        flex-direction: row;
-        padding: 16px;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        justify-content: space-around; /* Distribute icons evenly on mobile */
-    }
-    .nav-icon {
-        width: 32px; /* Smaller icons on mobile */
-        height: 32px;
-    }
-    .main-content {
-        padding: 24px; /* Reduced padding on mobile */
-    }
-    .input-container {
-        max-width: 100%; /* Full width input on mobile */
-    }
-    .task-input {
-        padding: 18px; /* Smaller input padding on mobile */
-        font-size: 16px;
-    }
-    .input-buttons {
-        right: 8px; /* Adjust input buttons position on mobile */
-        top: 8px;
-    }
-    .input-btn {
-        width: 32px; /* Smaller input buttons on mobile */
-        height: 32px;
-        font-size: 16px;
-    }
-    .ai-response {
-        padding: 18px; /* Reduced padding on mobile for AI response */
-    }
-    .interactive-diagram {
-        grid-template-columns: 1fr; /* Stack diagram nodes on mobile */
-    }
-    .diagram-node {
-        padding: 16px; /* Smaller diagram node padding on mobile */
-    }
-    .progress-radial {
-        width: 100px; /* Smaller progress radial on mobile */
-        height: 100px;
-    }
-    .progress-radial-label {
-        font-size: 20px; /* Smaller label on mobile */
-    }
-    .code-block {
-        padding: 12px; /* Smaller code block padding on mobile */
-    }
-    .code-text {
-        font-size: 13px; /* Smaller code font size on mobile */
-    }
+.glass-card span {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
 }

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Liquid Glass System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* Цвета для светлой темы */
+            --light-bg-color: rgba(250, 250, 252, 0.4);
+            --light-bg-color-scrolled: rgba(245, 245, 247, 0.75);
+            --light-border-color: rgba(255, 255, 255, 0.7);
+            --light-highlight-color: rgba(0, 0, 0, 0.05);
+            --light-shadow-color: rgba(80, 80, 110, 0.15);
+            --light-text-color: rgba(0, 0, 0, 0.85);
+            --light-ripple-color: rgba(255, 255, 255, 0.7);
+
+            /* Цвета для темной темы */
+            --dark-bg-color: rgba(40, 40, 45, 0.4);
+            --dark-bg-color-scrolled: rgba(30, 30, 35, 0.75);
+            --dark-border-color: rgba(255, 255, 255, 0.1);
+            --dark-highlight-color: rgba(255, 255, 255, 0.1);
+            --dark-shadow-color: rgba(0, 0, 0, 0.4);
+            --dark-text-color: rgba(255, 255, 255, 0.9);
+            --dark-ripple-color: rgba(255, 255, 255, 0.2);
+
+            /* Параметры анимации */
+            --transition-duration: 0.4s;
+            --transition-timing: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            /*
+            ЗАМЕНА ФОНА НА КОНТРАСТНУЮ СЕТКУ:
+            Это сделано специально, чтобы наглядно продемонстрировать эффект линзы.
+            Искажение прямых линий сетки под элементами сразу становится очевидным.
+            */
+            background-color: #1a1a1e;
+            background-image:
+                    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #eee;
+            overscroll-behavior: none;
+        }
+
+        .main-content {
+            padding: 40px;
+            padding-bottom: 200px; /* Место для нижнего тулбара */
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .demo-section {
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(30, 30, 35, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .demo-section h2 {
+            margin-top: 0;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .demo-section p {
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* --- 1. БАЗОВЫЙ СТИЛЬ LIQUID GLASS --- */
+
+        .liquid-glass {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+
+            background-color: var(--dark-bg-color);
+            transition: background-color 0.5s ease, transform 0.2s var(--transition-timing), box-shadow 0.3s var(--transition-timing);
+
+            box-shadow: 0 8px 32px -8px var(--dark-shadow-color),
+            inset 0 1px 0 0 var(--dark-highlight-color);
+
+            border: 1px solid var(--dark-border-color);
+            color: var(--dark-text-color);
+
+            backdrop-filter: blur(4px);
+        }
+
+        /* --- 2. ИНТЕРАКТИВНЫЕ СОСТОЯНИЯ --- */
+
+        .liquid-glass:hover:not(:active) {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 45px -12px var(--dark-shadow-color),
+            inset 0 1px 0 0 var(--dark-highlight-color);
+        }
+
+        .liquid-glass:active {
+            transform: scale(0.97) translateY(-1px);
+            transition-duration: 0.05s;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--dark-ripple-color);
+            transform: scale(0);
+            animation: ripple-effect 0.6s ease-out;
+            pointer-events: none;
+        }
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* --- 3. АДАПТИВНОСТЬ К ФОНУ --- */
+
+        /* Стили для элементов на светлом фоне (в примере) */
+        .light-bg {
+            background-image:
+                    linear-gradient(rgba(0,0,0, 0.07) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0, 0.07) 1px, transparent 1px);
+            background-color: #eef2f5;
+        }
+        .light-bg .liquid-glass {
+            background-color: var(--light-bg-color);
+            box-shadow: 0 8px 32px -8px var(--light-shadow-color),
+            inset 0 1px 0 0 var(--light-highlight-color);
+            border-color: var(--light-border-color);
+            color: var(--light-text-color);
+        }
+        .light-bg .liquid-glass:hover:not(:active) {
+            box-shadow: 0 16px 45px -12px var(--light-shadow-color),
+            inset 0 1px 0 0 var(--light-highlight-color);
+        }
+        .light-bg .ripple {
+            background-color: var(--light-ripple-color);
+        }
+        .light-bg .demo-section {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .light-bg .demo-section h2 { color: rgba(0, 0, 0, 0.8); border-bottom-color: rgba(0, 0, 0, 0.1); }
+        .light-bg .demo-section p { color: rgba(0, 0, 0, 0.6); }
+
+
+        /* --- 4. КОНКРЕТНЫЕ КОМПОНЕНТЫ --- */
+
+        /* 4.1. Панель инструментов */
+        .toolbar-wrapper {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        #morphing-toolbar {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            height: 64px;
+            padding: 0 12px;
+            border-radius: 32px;
+            will-change: width, height, border-radius;
+        }
+        #morphing-toolbar.scrolled {
+            background-color: var(--dark-bg-color-scrolled);
+        }
+        .toolbar-btn {
+            width: 56px; height: 56px; border-radius: 50%;
+            font-size: 24px; flex-shrink: 0; border: none; padding: 0;
+            cursor: pointer; transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .toolbar-btn.is-hiding {
+            opacity: 0; transform: scale(0.5); pointer-events: none;
+        }
+        .toolbar-menu-content {
+            display: none; opacity: 0; align-items: center;
+            gap: 20px; transition: opacity 0.2s ease 0.2s;
+        }
+        #morphing-toolbar.is-open .toolbar-menu-content {
+            display: flex; opacity: 1;
+        }
+
+        /* 4.2. Интерактивная кнопка */
+        #interactive-button {
+            width: 80px; height: 80px; border-radius: 50%; font-size: 36px;
+        }
+
+        /* 4.3. Слайдер */
+        .slider-container { width: 80%; max-width: 400px; position: relative; display: flex; align-items: center; height: 60px; }
+        .slider-track { width: 100%; height: 12px; background: rgba(0, 0, 0, 0.3); border-radius: 6px; position: relative; overflow: hidden; }
+        .slider-track-fill { position: absolute; left: 0; height: 100%; background: #5a9eff; border-radius: 6px; }
+        .slider-thumb {
+            width: 48px; height: 48px; border-radius: 50%;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            left: 0; cursor: grab; will-change: left;
+        }
+        .slider-thumb:active { cursor: grabbing; transform: scale(0.97) translateY(-50%); }
+
+        /* 4.4. Адаптивный элемент */
+        .adaptive-demo-area { width: 100%; height: 200px; display: flex; position: relative; border-radius: 16px; overflow: hidden; }
+        .adaptive-demo-area .dark-bg, .adaptive-demo-area .light-bg { width: 50%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        #adaptive-element {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px; height: 70px; border-radius: 35px;
+            font-size: 18px; font-weight: 500;
+        }
+
+        .icon { width: 1em; height: 1em; stroke-width: 2; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+        .background-layer {
+            position: fixed; top: -5%; left: -5%; width: 110%; height: 110%;
+            background: var(--bg-url) no-repeat center center; background-size: cover;
+            z-index: -10;
+            animation: background-pan 40s ease-in-out infinite alternate;
+        }
+        @keyframes background-pan {
+            from { transform: scale(1) translate(0, 0); }
+            to { transform: scale(1.1) translate(2%, 4%); }
+        }
+        .content-container { position: relative; z-index: 1; }
+        .content-overlay {
+            padding: 10vh 10%; color: white;
+            font-size: clamp(16px, 2.5vw, 22px); line-height: 1.6;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7); text-align: center;
+        }
+        .content-overlay h1 {
+            font-size: clamp(36px, 8vw, 64px); font-weight: 800; margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #d0d0d0);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .content-overlay p { max-width: 800px; margin: 0 auto; opacity: 0.9; }
+        .liquid-glass-container {
+            position: absolute;
+            /* Важно для изоляции во время захвата */
+            transition: opacity 0.3s;
+        }
+        .liquid-glass-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        /* Класс для временного скрытия элементов во время захвата */
+        body.glass-capturing .liquid-glass-container {
+            visibility: hidden;
+        }
+        .cards-wrapper {
+            position: relative; height: 1000px;
+            max-width: 1200px; margin: 50px auto;
+        }
+        .glass-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Расположение и настройки карточек */
+        .card-1 { top: 50px; left: 50px; width: 320px; height: 220px; }
+        .card-2 { top: 180px; right: 80px; width: 300px; height: 180px; }
+        .card-3 { bottom: 200px; left: 20%; width: 400px; height: 240px; }
+        .card-4 { bottom: 100px; right: 15%; width: 250px; height: 150px; }
+
+        .card-content {
+            position: relative; z-index: 10; color: white;
+            text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .card-title { font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+        .card-text { font-size: 15px; opacity: 0.9; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+<!--
+    УЛУЧШЕННЫЕ SVG-ФИЛЬТРЫ
+    Они определяют настоящий эффект линзы и применяются через backdrop-filter.
+-->
+<svg width="0" height="0" style="position:absolute; z-index: -1;">
+    <defs>
+        <!--
+        Карта смещения для эффекта ВЫПУКЛОЙ ЛИНЗЫ (Bulge).
+        Центр (серый) почти не смещает пиксели.
+        Края (белый) "выталкивают" их наружу, создавая искажение.
+        -->
+        <radialGradient id="lens-gradient-bulge" cx="50%" cy="50%" r="50%">
+            <stop offset="50%" stop-color="#808080" /> <!-- Нейтральный центр -->
+            <stop offset="100%" stop-color="white" /> <!-- Выталкивающие края -->
+        </radialGradient>
+
+        <!--
+        ФИНАЛЬНЫЙ ФИЛЬТР "LIQUID-LENSE"
+        Он объединяет несколько техник для создания сложного эффекта.
+        -->
+        <filter id="liquid-lense" x="-20%" y="-20%" width="140%" height="140%">
+            <!-- 1. Размываем фон (in="BackdropImage" - это ключевой момент) -->
+            <feGaussianBlur in="BackdropImage" stdDeviation="8" result="blurred" />
+
+            <!-- 2. Создаем карту смещения из нашего градиента "bulge" -->
+            <feImage xlink:href="#lens-gradient-rect" width="100%" height="100%" result="gradientMap"/>
+
+            <!-- 3. ИСКАЖАЕМ размытый фон с помощью карты. Это создает эффект линзы. -->
+            <!-- scale="40" - большая сила для заметного искажения. -->
+            <feDisplacementMap in="blurred" in2="gradientMap" scale="40" xChannelSelector="R" yChannelSelector="G" result="lensed"/>
+
+            <!-- 4. Добавляем "жидкую" текстуру. Это делает материал органичным. -->
+            <!-- feTurbulence создает шум, похожий на рябь на воде. -->
+            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.1" numOctaves="2" result="turbulence"/>
+            <!-- Слегка искажаем уже искаженное изображение этой "рябью". -->
+            <feDisplacementMap in="lensed" in2="turbulence" scale="3" />
+        </filter>
+
+        <!-- Прямоугольник, залитый градиентом, на который ссылается feImage -->
+        <rect id="lens-gradient-rect" width="100%" height="100%" fill="url(#lens-gradient-bulge)"/>
+    </defs>
+</svg>
+
+<div class="main-content">
+    <h1>Дизайн-система "Liquid Glass"</h1>
+    <p style="color: #aaa; text-align: center; max-width: 600px;">
+        Эта страница демонстрирует концепцию "жидкого стекла". Обратите внимание, как элементы **оптически искажают** линии фоновой сетки, создавая эффект выпуклой линзы.
+    </p>
+
+    <div class="demo-section">
+        <h2>Часть 1 & 2: Интерактивная кнопка</h2>
+        <p>Наведите, чтобы увидеть "поднятие" и усиление тени. Нажмите, чтобы увидеть "вдавливание" и свечение. Эффект линзы искажает сетку под кнопкой.</p>
+        <button id="interactive-button" class="liquid-glass">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+        </button>
+    </div>
+
+    <div class="demo-section">
+        <h2>Часть 2: Эластичный Слайдер</h2>
+        <p>Перетащите ползунок. Он движется с упругостью благодаря пружинной физике. Эффект линзы на ползунке искажает трек и фоновую сетку под ним.</p>
+        <div class="slider-container">
+            <div class="slider-track">
+                <div id="slider-fill" class="slider-track-fill"></div>
+            </div>
+            <div id="slider-thumb" class="liquid-glass slider-thumb"></div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Часть 3: Адаптивный элемент</h2>
+        <p>Этот элемент расположен на границе светлого и темного фона. Цвет текста и стиль стекла автоматически адаптируются для сохранения контрастности.</p>
+        <div class="adaptive-demo-area">
+            <div class="dark-bg"></div>
+            <div class="light-bg"></div>
+            <div id="adaptive-element" class="liquid-glass" data-magnification="1.08" data-strength="40" data-blur="3" data-opacity="0.45">
+                Адаптивный текст
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 100vh; color: #555; text-align: center; padding-top: 40vh;">
+        Прокрутите страницу вниз, чтобы увидеть эффект на тулбаре...
+    </div>
+</div>
+
+<!-- Панель инструментов с морфингом -->
+<div class="toolbar-wrapper">
+    <div id="morphing-toolbar" class="liquid-glass">
+        <button id="btn-home" class="toolbar-btn liquid-glass">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </button>
+        <button id="btn-search" class="toolbar-btn liquid-glass">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button id="btn-menu" class="toolbar-btn liquid-glass">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <button id="btn-profile" class="toolbar-btn liquid-glass">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </button>
+
+        <div class="toolbar-menu-content">
+            <span style="font-weight: 500;">Меню</span>
+            <button class="toolbar-btn liquid-glass" style="width: 48px; height: 48px; font-size: 20px;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </button>
+            <button class="toolbar-btn liquid-glass" style="width: 48px; height: 48px; font-size: 20px;">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+            <button id="btn-close-menu" class="toolbar-btn liquid-glass" style="width: 48px; height: 48px; font-size: 20px;">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================= -->
+<!-- СКРИПТ ДЛЯ WEB WORKER'А (ЛЕЖИТ ПРЯМО В HTML) -->
+<!-- ======================================================================= -->
+<script type="x-worker" id="glass-worker">
+    // Функции, перенесенные в воркер
+    const normalMapCache = new Map();
+
+    function getOrCreateNormalMap(width, height, magnification) {
+        const cacheKey = `${width}x${height}-${magnification}`;
+        if (normalMapCache.has(cacheKey)) return normalMapCache.get(cacheKey);
+
+        const data = new Uint8ClampedArray(width * height * 4);
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const maxDist = Math.sqrt(centerX * centerX + centerY * centerY);
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const dx = x - centerX;
+                const dy = y - centerY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const falloff = Math.pow(1 - (dist / maxDist), 2) * (magnification - 1);
+                const nx = -dx * falloff;
+                const ny = -dy * falloff;
+                const index = (y * width + x) * 4;
+                data[index] = nx + 128;
+                data[index + 1] = ny + 128;
+                data[index + 2] = 255;
+                data[index + 3] = 255;
+            }
+        }
+        const imageData = new ImageData(data, width, height);
+        normalMapCache.set(cacheKey, imageData);
+        return imageData;
+    }
+
+    function applyNormalMapDistortion(backgroundData, normalMap, strength) {
+        const { width, height, data: bgPixels } = backgroundData;
+        const { data: normalPixels } = normalMap;
+        const outPixels = new Uint8ClampedArray(width * height * 4);
+
+        for (let i = 0; i < normalPixels.length; i += 4) {
+            const nx = (normalPixels[i] - 128) / 128;
+            const ny = (normalPixels[i + 1] - 128) / 128;
+            const pixelIndex = i / 4;
+            const x = pixelIndex % width;
+            const y = Math.floor(pixelIndex / width);
+            const sourceX = x + nx * strength;
+            const sourceY = y + ny * strength;
+            const sx = Math.round(Math.max(0, Math.min(width - 1, sourceX)));
+            const sy = Math.round(Math.max(0, Math.min(height - 1, sourceY)));
+            const sourceIndex = (sy * width + sx) * 4;
+
+            outPixels[i] = bgPixels[sourceIndex];
+            outPixels[i + 1] = bgPixels[sourceIndex + 1];
+            outPixels[i + 2] = bgPixels[sourceIndex + 2];
+            outPixels[i + 3] = 255;
+        }
+        return new ImageData(outPixels, width, height);
+    }
+
+    // Главный обработчик сообщений в воркере
+    self.onmessage = (e) => {
+        const { id, bgImageData, config } = e.data;
+        const { width, height, magnification, strength, blur, sheenIntensity, shadowIntensity, causticsIntensity } = config;
+
+        // 1. Создание/получение карты нормалей
+        const normalMap = getOrCreateNormalMap(width, height, magnification);
+
+        // 2. Искажение фона
+        const distortedBg = applyNormalMapDistortion(bgImageData, normalMap, strength);
+
+        // 3. Рендеринг в OffscreenCanvas для применения эффектов
+        const canvas = new OffscreenCanvas(width, height);
+        const ctx = canvas.getContext('2d');
+
+        ctx.putImageData(distortedBg, 0, 0);
+
+        // 4. Размытие
+        if (blur > 0) {
+            ctx.filter = `blur(${blur}px)`;
+            ctx.drawImage(canvas, 0, 0);
+            ctx.filter = 'none';
+        }
+
+        // 5. Освещение (упрощенная версия без анализа, для скорости)
+        const sheenGradient = ctx.createLinearGradient(0, 0, width, height);
+        sheenGradient.addColorStop(0, `rgba(255, 255, 255, ${sheenIntensity})`);
+        sheenGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.globalCompositeOperation = 'overlay';
+        ctx.fillStyle = sheenGradient;
+        ctx.fillRect(0, 0, width, height);
+
+        const shadowGradient = ctx.createLinearGradient(width, height, 0, 0);
+        shadowGradient.addColorStop(0, `rgba(0, 0, 0, ${shadowIntensity})`);
+        shadowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.fillStyle = shadowGradient;
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.strokeStyle = `rgba(255, 255, 255, ${causticsIntensity * 0.7})`;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(1, 1, width - 2, height - 2);
+
+        // 6. Конвертация в ImageBitmap и отправка обратно
+        const finalBitmap = canvas.transferToImageBitmap();
+        self.postMessage({ id, bitmap: finalBitmap }, [finalBitmap]);
+    };
+</script>
+
+<!-- ======================================================================= -->
+<!-- ОСНОВНОЙ СКРИПТ СИСТЕМЫ (MAIN THREAD) -->
+<!-- ======================================================================= -->
+<script>
+    class LiquidGlassSystem {
+        constructor() {
+            this.elements = new Map();
+            this.nextId = 0;
+            this.isUpdateQueued = true;
+            this.isCapturing = false;
+
+            // Настройки системы
+            this.UPDATE_THROTTLE = 200; // ms, как часто можно запускать захват фона
+            this.BLEND_DURATION = 200; // ms, длительность плавного перехода
+
+            this.initWorker();
+            this.initEventListeners();
+            this.startRenderLoop();
+        }
+
+        initWorker() {
+            const workerScript = document.getElementById('glass-worker').textContent;
+            const workerBlob = new Blob([workerScript], { type: 'application/javascript' });
+            this.worker = new Worker(URL.createObjectURL(workerBlob));
+            this.worker.onmessage = (e) => this.handleWorkerMessage(e);
+        }
+
+        handleWorkerMessage(e) {
+            const { id, bitmap } = e.data;
+            const elementData = this.elements.get(id);
+            if (elementData) {
+                elementData.oldBitmap = elementData.newBitmap;
+                elementData.newBitmap = bitmap;
+                elementData.blendStartTime = performance.now();
+            }
+        }
+
+        initEventListeners() {
+            let throttleTimeout = null;
+            const requestUpdate = () => {
+                if (!throttleTimeout) {
+                    this.isUpdateQueued = true;
+                    throttleTimeout = setTimeout(() => {
+                        throttleTimeout = null;
+                    }, this.UPDATE_THROTTLE);
+                }
+            };
+            window.addEventListener('scroll', requestUpdate);
+            window.addEventListener('resize', requestUpdate);
+        }
+
+        applyTo(element) {
+            const id = this.nextId++;
+            const canvas = document.createElement('canvas');
+            canvas.className = 'liquid-glass-canvas';
+            element.prepend(canvas);
+
+            const config = {
+                magnification: parseFloat(element.dataset.magnification) || 1.08,
+                strength: parseFloat(element.dataset.strength) || 40,
+                blur: parseFloat(element.dataset.blur) || 3,
+                opacity: parseFloat(element.dataset.opacity) || 0.45,
+                sheenIntensity: 0.2,
+                shadowIntensity: 0.25,
+                causticsIntensity: 0,
+            };
+
+            const data = {
+                id, element, canvas, config,
+                ctx: canvas.getContext('2d'),
+                rect: null, // будет обновляться в цикле
+                newBitmap: null, oldBitmap: null, blendStartTime: 0
+            };
+
+            this.elements.set(id, data);
+            this.isUpdateQueued = true; // Запросить обновление для нового элемента
+        }
+
+        async performGlobalCapture() {
+            if (this.isCapturing) return;
+            this.isCapturing = true;
+            document.body.classList.add('glass-capturing');
+
+            try {
+                // Задержка, чтобы CSS успел примениться
+                await new Promise(resolve => setTimeout(resolve, 50));
+
+                const captureCanvas = await html2canvas(document.body, {
+                    useCORS: true, logging: false, scale: 1,
+                    width: window.innerWidth, height: window.innerHeight,
+                    x: window.scrollX, y: window.scrollY,
+                    windowWidth: document.documentElement.scrollWidth,
+                    windowHeight: document.documentElement.scrollHeight
+                });
+                this.dispatchRenderJobs(captureCanvas);
+            } catch (e) {
+                console.error("html2canvas capture failed:", e);
+            } finally {
+                document.body.classList.remove('glass-capturing');
+                this.isCapturing = false;
+            }
+        }
+
+        dispatchRenderJobs(captureCanvas) {
+            const captureCtx = captureCanvas.getContext('2d');
+            for (const [id, data] of this.elements.entries()) {
+                const rect = data.element.getBoundingClientRect();
+                // Пропускаем элементы вне экрана
+                if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+
+                data.rect = rect; // Обновляем позицию
+                const dpr = window.devicePixelRatio || 1;
+                data.canvas.width = rect.width * dpr;
+                data.canvas.height = rect.height * dpr;
+                data.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                // Вырезаем нужный кусок из глобального захвата
+                const bgImageData = captureCtx.getImageData(rect.left, rect.top, rect.width, rect.height);
+
+                // Отправляем задание в воркер
+                this.worker.postMessage({
+                    id: id,
+                    bgImageData: bgImageData,
+                    config: { ...data.config, width: rect.width, height: rect.height }
+                });
+            }
+        }
+
+        startRenderLoop() {
+            const loop = (now) => {
+                if (this.isUpdateQueued && !this.isCapturing) {
+                    this.isUpdateQueued = false;
+                    this.performGlobalCapture();
+                }
+
+                for (const data of this.elements.values()) {
+                    this.renderElement(data, now);
+                }
+
+                requestAnimationFrame(loop);
+            };
+            requestAnimationFrame(loop);
+        }
+
+        renderElement(data, now) {
+            if (!data.rect) return;
+            const { ctx, oldBitmap, newBitmap, blendStartTime, config, rect } = data;
+            ctx.clearRect(0, 0, rect.width, rect.height);
+
+            if (!newBitmap) return;
+
+            const blendProgress = Math.min(1, (now - blendStartTime) / this.BLEND_DURATION);
+
+            ctx.globalAlpha = config.opacity;
+
+            // Рисуем старый кадр, если он есть и переход не завершен
+            if (oldBitmap && blendProgress < 1) {
+                ctx.globalAlpha = config.opacity * (1 - blendProgress);
+                ctx.drawImage(oldBitmap, 0, 0, rect.width, rect.height);
+            }
+
+            // Рисуем новый кадр поверх
+            ctx.globalAlpha = config.opacity * (blendProgress < 1 ? blendProgress : 1);
+            ctx.drawImage(newBitmap, 0, 0, rect.width, rect.height);
+
+            ctx.globalAlpha = 1.0; // Сброс
+        }
+    }
+</script>
+
+<script>
+    // Весь JS-код остается без изменений, так как он отвечает за анимации и интерактивность,
+    // а не за статический рендеринг эффекта линзы. Я его здесь привожу для полноты.
+    document.addEventListener('DOMContentLoaded', () => {
+        const liquidElements = document.querySelectorAll('.liquid-glass');
+        liquidElements.forEach(el => {
+            el.addEventListener('mousedown', function(e) {
+                if (e.target.closest('button, .slider-thumb')) {
+                    const rect = el.getBoundingClientRect();
+                    const ripple = document.createElement('span');
+                    const diameter = Math.max(el.clientWidth, el.clientHeight);
+                    const radius = diameter / 2;
+
+                    ripple.style.width = ripple.style.height = `${diameter}px`;
+                    ripple.style.left = `${e.clientX - rect.left - radius}px`;
+                    ripple.style.top = `${e.clientY - rect.top - radius}px`;
+                    ripple.classList.add('ripple');
+
+                    const existingRipple = el.querySelector('.ripple');
+                    if(existingRipple) existingRipple.remove();
+
+                    el.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => ripple.remove());
+                }
+            });
+        });
+
+        function animateSpring(element, properties, options = {}) {
+            const { stiffness = 0.1, damping = 0.7, mass = 1, onUpdate, onComplete } = options;
+            let animationFrameId;
+            const springs = {};
+            for (const key in properties) {
+                const targetValue = properties[key];
+                const initialValue = parseFloat(getComputedStyle(element)[key]) || 0;
+                springs[key] = { current: initialValue, target: targetValue, velocity: 0 };
+            }
+            function tick() {
+                let allSettled = true;
+                for (const key in springs) {
+                    const spring = springs[key];
+                    const force = (spring.target - spring.current) * stiffness;
+                    const dampingForce = -spring.velocity * damping;
+                    const acceleration = (force + dampingForce) / mass;
+                    spring.velocity += acceleration;
+                    spring.current += spring.velocity;
+                    if (key === 'border-radius') {
+                        element.style.borderRadius = `${spring.current}px`;
+                    } else {
+                        element.style[key] = `${spring.current}px`;
+                    }
+                    if (Math.abs(spring.velocity) > 0.01 || Math.abs(spring.target - spring.current) > 0.01) {
+                        allSettled = false;
+                    } else {
+                        spring.velocity = 0;
+                        spring.current = spring.target;
+                    }
+                }
+                if (onUpdate) onUpdate(springs);
+                if (allSettled) {
+                    cancelAnimationFrame(animationFrameId);
+                    if (onComplete) onComplete();
+                } else {
+                    animationFrameId = requestAnimationFrame(tick);
+                }
+            }
+            tick();
+        }
+
+        const sliderThumb = document.getElementById('slider-thumb');
+        const sliderTrack = sliderThumb.parentElement;
+        const sliderFill = document.getElementById('slider-fill');
+        let isDragging = false;
+        let sliderAnimationId;
+        const spring = { current: 0, target: 0, velocity: 0 };
+        function updateSliderPosition() {
+            const trackWidth = sliderTrack.offsetWidth;
+            const thumbWidth = sliderThumb.offsetWidth;
+            const stiffness = isDragging ? 0.2 : 0.1;
+            const damping = isDragging ? 0.8 : 0.6;
+            const force = (spring.target - spring.current) * stiffness;
+            const dampingForce = -spring.velocity * damping;
+            spring.velocity += force + dampingForce;
+            spring.current += spring.velocity;
+            let left = Math.max(0, Math.min(spring.current, trackWidth - thumbWidth));
+            sliderThumb.style.left = `${left}px`;
+            sliderFill.style.width = `${left + thumbWidth / 2}px`;
+            if (!isDragging && Math.abs(spring.velocity) < 0.01 && Math.abs(spring.target - spring.current) < 0.01) {
+                cancelAnimationFrame(sliderAnimationId);
+            } else {
+                sliderAnimationId = requestAnimationFrame(updateSliderPosition);
+            }
+        }
+        sliderThumb.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            sliderThumb.style.transition = 'none';
+            document.body.style.cursor = 'grabbing';
+            document.body.style.userSelect = 'none';
+            cancelAnimationFrame(sliderAnimationId);
+            sliderAnimationId = requestAnimationFrame(updateSliderPosition);
+            function onMouseMove(moveEvent) {
+                const rect = sliderTrack.getBoundingClientRect();
+                spring.target = moveEvent.clientX - rect.left - sliderThumb.offsetWidth / 2;
+            }
+            function onMouseUp() {
+                isDragging = false;
+                sliderThumb.style.transition = '';
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+        spring.target = spring.current = (sliderTrack.offsetWidth - sliderThumb.offsetWidth) * 0.3;
+        updateSliderPosition();
+        cancelAnimationFrame(sliderAnimationId);
+
+        const toolbar = document.getElementById('morphing-toolbar');
+        const observer = new IntersectionObserver(([entry]) => {
+            toolbar.classList.toggle('scrolled', !entry.isIntersecting);
+        }, { rootMargin: "0px", threshold: 0.1 });
+        observer.observe(document.querySelector('.main-content h1'));
+
+        const morphToolbar = document.getElementById('morphing-toolbar');
+        const menuButton = document.getElementById('btn-menu');
+        const closeButton = document.getElementById('btn-close-menu');
+        const primaryButtons = [document.getElementById('btn-home'), document.getElementById('btn-search'), document.getElementById('btn-menu'), document.getElementById('btn-profile')];
+        const initialToolbarState = { width: 256, borderRadius: 32 };
+        const openToolbarState = { width: 360, borderRadius: 36 };
+        menuButton.addEventListener('click', () => {
+            if (morphToolbar.classList.contains('is-open')) return;
+            morphToolbar.classList.add('is-open');
+            primaryButtons.forEach(btn => btn.classList.add('is-hiding'));
+            animateSpring(morphToolbar, openToolbarState, {stiffness: 0.08, damping: 0.6});
+        });
+        closeButton.addEventListener('click', () => {
+            if (!morphToolbar.classList.contains('is-open')) return;
+            morphToolbar.classList.remove('is-open');
+            animateSpring(morphToolbar, initialToolbarState, {
+                stiffness: 0.08,
+                damping: 0.7,
+                onComplete: () => primaryButtons.forEach(btn => btn.classList.remove('is-hiding'))
+            });
+        });
+    });
+
+    // --- ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const glassSystem = new LiquidGlassSystem();
+        document.querySelectorAll('.liquid-glass').forEach(card => {
+            glassSystem.applyTo(card);
+        });
+    });
+</script>
+
+</body>
+</html>
